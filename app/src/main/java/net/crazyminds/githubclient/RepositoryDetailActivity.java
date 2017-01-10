@@ -1,11 +1,22 @@
 package net.crazyminds.githubclient;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,18 +27,11 @@ import java.util.Set;
 import static net.crazyminds.githubclient.MainActivity.REPOSITORY_DETAILL;
 
 public class RepositoryDetailActivity extends AppCompatActivity {
-
+    public static final String CHOOSEN_REPOSITORY = "CHOOSEN_REPOSITORY";
     Repository repository;
 
-    //UI
-    TextView Id;
-    TextView Name;
-    TextView FullName;
-    TextView OwnerName;
-    TextView Description;
-    TextView Language;
-    TextView HomePage;
-
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    ViewPager viewPager;
 
 
     @Override
@@ -35,32 +39,66 @@ public class RepositoryDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repository_detail);
 
-        Id = (TextView)findViewById(R.id.repositorydetail_id_value);
-        Name = (TextView)findViewById(R.id.repositorydetail_name_value);
-        FullName = (TextView)findViewById(R.id.repositorydetail_fullname_value);
-        OwnerName = (TextView)findViewById(R.id.repositorydetail_ownername_value);
-        Description = (TextView)findViewById(R.id.repositorydetail_description_value);
-        Language = (TextView)findViewById(R.id.repositorydetail_language_value);
-        HomePage = (TextView)findViewById(R.id.repositorydetail_homepage_value);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(mSectionsPagerAdapter);
+
 
         Intent intent = getIntent();
-
         if(intent != null && intent.getParcelableExtra(REPOSITORY_DETAILL) != null){
             repository = (Repository) getIntent().getParcelableExtra(REPOSITORY_DETAILL);
-
-            Id.setText( getString( R.string.blank, repository.getId()));
-            Name.setText( repository.getName());
-            FullName.setText( repository.getFullName() );
-            OwnerName.setText( repository.getOwnerName());
-            Description.setText( repository.getDescription());
-            Language.setText( repository.getLanguage() );
-            HomePage.setText( repository.getHomePage());
-
             setTitle(repository.getFullName() );
         }
         else{
             Toast.makeText(this, "Fail! Try again", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            if(position == 0)
+            {
+                return RepositoryDetailInfoFragment.newInstance(repository);
+
+            }
+            else
+            {
+                return RepositoryDetailPullFragment.newInstance(repository);
+            }
+
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Info";
+                case 1:
+                    return "Pulls";
+            }
+            return null;
+        }
     }
 }
