@@ -3,26 +3,15 @@ package net.crazyminds.githubclient.domain;
 import java.io.Serializable;
 
 /**
- * Created by julio on 09/01/2017.
+ * Created by julio on 10/01/2017.
  */
 
-public class RepositoryResume implements Serializable {
+public class Repository implements Serializable {
 
     private int id;
     private String name;
     private String fullName;
     private String ownerName;
-
-    public RepositoryResume(){
-    }
-
-    public RepositoryResume(int idparam, String nameparam, String fullnameparam, String ownerparam)
-    {
-        id = idparam;
-        name = nameparam;
-        ownerName = ownerparam;
-        fullName = fullnameparam;
-    }
 
     public int getId() {
         return id;
@@ -37,7 +26,7 @@ public class RepositoryResume implements Serializable {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
     public String getOwnerName() {
@@ -45,7 +34,7 @@ public class RepositoryResume implements Serializable {
     }
 
     public void setOwnerName(String ownerName) {
-        ownerName = ownerName;
+        this.ownerName = ownerName;
     }
 
     public String getFullName() {
