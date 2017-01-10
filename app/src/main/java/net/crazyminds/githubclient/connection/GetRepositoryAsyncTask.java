@@ -58,6 +58,10 @@ public class GetRepositoryAsyncTask extends AsyncTask<Object, Object, Void> {
             repository.setName(rep.getName());
             repository.setFullName(rep.getFullName());
             repository.setOwnerName(rep.getOwnerName());
+            repository.setDescription(rep.getDescription());
+            repository.setLanguage(rep.getLanguage());
+            repository.setHomePage(rep.getHomepage());
+
             result.setRepository( repository);
         } catch (HttpException e) {
             e.printStackTrace();

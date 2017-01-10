@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">GitHubClient</string>
+
+    <string name="blank">%d</string>
+
+
+    //Repository Detail
+    <string name="repositorydetail_id">Id</string>
+    <string name="repositorydetail_name">Nome</string>
+    <string name="repositorydetail_fullname">Nome Completo</string>
+    <string name="repositorydetail_ownername">Proprietário</string>
+    <string name="repositorydetail_description">Descrição</string>
+    <string name="repositorydetail_language">Língua</string>
+    <string name="repositorydetail_homepage">Página Web</string>
+
+</resources>
