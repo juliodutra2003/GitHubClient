@@ -23,6 +23,7 @@ import net.crazyminds.githubclient.connection.ListRepositoryPullAsyncTask;
 import net.crazyminds.githubclient.domain.PullRequest;
 import net.crazyminds.githubclient.domain.Repository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,7 +102,7 @@ public class RepositoryDetailPullFragment extends android.support.v4.app.Fragmen
         };
 
         if(savedInstanceState != null){
-            listPullRequest = (List<PullRequest>) savedInstanceState.getParcelable(PULL_LIST);
+            listPullRequest = (List<PullRequest>) savedInstanceState.getSerializable(PULL_LIST);
             if(listPullRequest != null)
                 PopulateListView();
 
@@ -143,7 +144,7 @@ public class RepositoryDetailPullFragment extends android.support.v4.app.Fragmen
         super.onSaveInstanceState(savedInstanceState);
 
         if(listPullRequest != null)
-            savedInstanceState.putParcelable(PULL_LIST, (Parcelable) listPullRequest);
+            savedInstanceState.putSerializable(PULL_LIST, (Serializable) listPullRequest);
 
         savedInstanceState.putBoolean(IS_THERE_MORE, isThereMore);
     }

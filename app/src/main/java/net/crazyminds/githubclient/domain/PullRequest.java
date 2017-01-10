@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by julio on 10/01/2017.
  */
 
-public class PullRequest implements Parcelable {
+public class PullRequest implements Serializable {
 
     private int id;
     private String creationDate;
@@ -28,25 +28,6 @@ public class PullRequest implements Parcelable {
         title = titleparam;
         ownerName = ownerNameparam;
     }
-
-    protected PullRequest(Parcel in) {
-        id = in.readInt();
-        creationDate = in.readString();
-        title = in.readString();
-        ownerName = in.readString();
-    }
-
-    public static final Creator<PullRequest> CREATOR = new Creator<PullRequest>() {
-        @Override
-        public PullRequest createFromParcel(Parcel in) {
-            return new PullRequest(in);
-        }
-
-        @Override
-        public PullRequest[] newArray(int size) {
-            return new PullRequest[size];
-        }
-    };
 
     public String getCreationDate() {
         return creationDate;
@@ -80,18 +61,5 @@ public class PullRequest implements Parcelable {
         this.title = title;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeInt( getId());
-        dest.writeString( getCreationDate());
-        dest.writeString( getTitle());
-        dest.writeString( getOwnerName());
-    }
 }
 
