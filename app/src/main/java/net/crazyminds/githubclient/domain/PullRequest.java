@@ -1,11 +1,6 @@
 package net.crazyminds.githubclient.domain;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
 
 /**
  * Created by julio on 10/01/2017.

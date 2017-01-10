@@ -9,12 +9,8 @@ import android.widget.TextView;
 
 import net.crazyminds.githubclient.R;
 import net.crazyminds.githubclient.domain.PullRequest;
-import net.crazyminds.githubclient.domain.RepositoryResume;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
