@@ -14,8 +14,9 @@ import static net.crazyminds.githubclient.RepositoryDetailActivity.CHOOSEN_REPOS
 
 
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
+ * Created by julio on 10/01/2017.
  */
+
 public class RepositoryDetailInfoFragment extends android.support.v4.app.Fragment {
 
     Repository repository;
@@ -54,8 +55,6 @@ public class RepositoryDetailInfoFragment extends android.support.v4.app.Fragmen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_repository_detail_info, container, false);
 
         Id = (TextView)view.findViewById(R.id.repositorydetail_id_value);

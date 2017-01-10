@@ -1,8 +1,6 @@
 package net.crazyminds.githubclient;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,21 +8,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import net.crazyminds.githubclient.domain.Repository;
 
-import java.util.Set;
-
 import static net.crazyminds.githubclient.MainActivity.REPOSITORY_DETAILL;
+
+/**
+ * Created by julio on 10/01/2017.
+ */
 
 public class RepositoryDetailActivity extends AppCompatActivity {
     public static final String CHOOSEN_REPOSITORY = "CHOOSEN_REPOSITORY";

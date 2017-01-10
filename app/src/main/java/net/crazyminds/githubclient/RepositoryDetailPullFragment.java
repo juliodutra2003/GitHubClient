@@ -19,7 +19,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import net.crazyminds.githubclient.adapter.PullRequestAdapter;
-import net.crazyminds.githubclient.adapter.RepositoryResumeAdapter;
 import net.crazyminds.githubclient.connection.ListRepositoryPullAsyncTask;
 import net.crazyminds.githubclient.domain.PullRequest;
 import net.crazyminds.githubclient.domain.Repository;
@@ -32,9 +31,10 @@ import static net.crazyminds.githubclient.connection.ListRepositoryPullAsyncTask
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by julio on 10/01/2017.
  */
-public class RepositoryDetailPullFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener , AbsListView.OnScrollListener  {
+
+public class RepositoryDetailPullFragment extends android.support.v4.app.Fragment implements AbsListView.OnScrollListener  {
 
     private static final String PULL_LIST = "PULL_LIST";
     private static final String IS_THERE_MORE = "IS_THERE_MORE";
@@ -66,8 +66,7 @@ public class RepositoryDetailPullFragment extends android.support.v4.app.Fragmen
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             repository = getArguments().getParcelable(CHOOSEN_REPOSITORY);
@@ -86,15 +85,12 @@ public class RepositoryDetailPullFragment extends android.support.v4.app.Fragmen
         progressBar = (ProgressBar) view.findViewById(R.id.pullfrag_progressbar);
         listView = (ListView) view.findViewById(R.id.pullfrag_listview);
         listView.setOnScrollListener(this);
-        listView.setOnItemClickListener(this);
 
         getPullBroadcastReceiver = new BroadcastReceiver()
         {
             @Override
             public void onReceive(Context context, Intent intent)
             {
-                Log.d("PullFragment" , " getPullBroadcastReceiver onReceive");
-
                 ListRepositoryPullAsyncTask.RepositoryPullListAsyncTaskResult result = (ListRepositoryPullAsyncTask.RepositoryPullListAsyncTaskResult) intent.getSerializableExtra(REPOSITORYPULLLIST_ASYNCTASK_RESULT);
                 listPullRequest.addAll(result.getPullRequestList());
                 isThereMore = result.isThereMore();
@@ -104,16 +100,14 @@ public class RepositoryDetailPullFragment extends android.support.v4.app.Fragmen
             }
         };
 
-        if(savedInstanceState != null)
-        {
+        if(savedInstanceState != null){
             listPullRequest = (List<PullRequest>) savedInstanceState.getParcelable(PULL_LIST);
             if(listPullRequest != null)
                 PopulateListView();
 
             isThereMore = savedInstanceState.getBoolean(IS_THERE_MORE, false);
         }
-        else
-        {
+        else{
             progressBar.setVisibility(View.VISIBLE);
             listViewFirstVisible = listView.getFirstVisiblePosition();
             View v = listView.getChildAt(0);
@@ -126,31 +120,26 @@ public class RepositoryDetailPullFragment extends android.support.v4.app.Fragmen
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart(){
         super.onStart();
         LocalBroadcastManager brInstance = LocalBroadcastManager.getInstance(getContext());
         brInstance.registerReceiver((getPullBroadcastReceiver), new IntentFilter(REPOSITORYPULLLIST_ASYNCTASK_RESULT));
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop(){
         LocalBroadcastManager brInstance = LocalBroadcastManager.getInstance(getContext());
         brInstance.unregisterReceiver(getPullBroadcastReceiver);
         super.onStop();
     }
 
     private void PopulateListView() {
-        Log.d("PullFragment" , "PopulateListView ");
-
         pullRequestAdapter = new PullRequestAdapter(getContext(), listPullRequest);
         listView.setAdapter(pullRequestAdapter);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState)
-    {
+    public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
 
         if(listPullRequest != null)
@@ -161,7 +150,6 @@ public class RepositoryDetailPullFragment extends android.support.v4.app.Fragmen
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        Log.d("PullFragment" , "onScrollStateChanged isThereMore " + isThereMore);
         if(isThereMore){
 
             if(listView.getLastVisiblePosition() + 1 == listPullRequest.size()) {
@@ -181,11 +169,5 @@ public class RepositoryDetailPullFragment extends android.support.v4.app.Fragmen
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 }
