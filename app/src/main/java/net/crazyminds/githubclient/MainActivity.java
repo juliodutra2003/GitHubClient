@@ -15,10 +15,9 @@ import net.crazyminds.githubclient.domain.RepositoryResume;
 
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
-import org.kohsuke.github.PagedIterable;
 import org.kohsuke.github.PagedIterator;
 
-import java.io.IOException;
+
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private boolean isThereMore;
     private List<RepositoryResume> listRepositoryResume;
 
+    int listViewYScroll;
+    int listViewFirstVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             Log.d("main" , "ListRepositoriesAsyncTask - onPreExecute");
             progressBar.setVisibility(View.VISIBLE);
+            listViewFirstVisible = listView.getFirstVisiblePosition();
+            View v = listView.getChildAt(0);
+            listViewYScroll = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
         }
 
         @Override
@@ -146,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Log.d("main" , "ListRepositoriesAsyncTask onPostExecute " + result);
             PopulateListView();
             progressBar.setVisibility(View.GONE);
+            listView.setSelectionFromTop(listViewFirstVisible, listViewYScroll);
         }
     }
 
