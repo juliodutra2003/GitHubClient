@@ -1,10 +1,12 @@
 package net.crazyminds.githubclient.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by julio on 09/01/2017.
  */
 
-public class RepositoryResume {
+public class RepositoryResume implements Serializable {
 
     private int id;
     private String name;

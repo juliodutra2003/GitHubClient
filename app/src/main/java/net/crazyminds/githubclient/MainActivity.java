@@ -18,12 +18,15 @@ import org.kohsuke.github.GitHub;
 import org.kohsuke.github.PagedIterator;
 
 
+import java.io.Serializable;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener , AbsListView.OnScrollListener  {
+
+    private static final String REPOSITORY_RESUME_LIST = "REPOSITORY_RESUME_LIST";
 
     private ListView listView;
     private RepositoryResumeAdapter repositoryResumeAdapter;
@@ -51,8 +54,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Log.d("main" , "onCreate");
 
+        if(savedInstanceState != null)
+        {
+            listRepositoryResume = (List<RepositoryResume>) savedInstanceState.getSerializable(REPOSITORY_RESUME_LIST);
+            if(listRepositoryResume != null)
+                PopulateListView();
+        }
+        else
+        {
+            new ListRepositoriesAsyncTask().execute("0");
+        }
 
-        new ListRepositoriesAsyncTask().execute("0");
 
         //GHRepository rep = github.getRepository("teste");
             //rep.listCommits()
@@ -63,9 +75,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d("main" , "PopulateListView ");
 
         repositoryResumeAdapter = new RepositoryResumeAdapter(MainActivity.this, listRepositoryResume);
-        Log.d("main" , "PopulateListView 3");
         listView.setAdapter(repositoryResumeAdapter);
-        Log.d("main" , "PopulateListView 4");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState)
+    {
+        super.onSaveInstanceState(savedInstanceState);
+
+        if(listRepositoryResume != null)
+            savedInstanceState.putSerializable(REPOSITORY_RESUME_LIST, (Serializable) listRepositoryResume);
 
     }
 
