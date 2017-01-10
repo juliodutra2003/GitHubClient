@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import net.crazyminds.githubclient.R;
@@ -59,7 +58,7 @@ public class RepositoryResumeAdapter extends ArrayAdapter<RepositoryResume> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.id.setText(repo.getId()+"");
+        holder.id.setText(String.valueOf(repo.getId()));
         holder.name.setText(repo.getName());
         holder.ownerName.setText(repo.getOwnerName());
 

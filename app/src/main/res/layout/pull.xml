@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <TextView
+        android:id="@+id/pull_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="id"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/pull_ownername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ownername"
+        android:textStyle="bold"
+        android:layout_alignBaseline="@+id/pull_id"
+        android:layout_alignBottom="@+id/pull_id"
+        android:layout_toEndOf="@+id/pull_id" />
+
+    <TextView
+        android:id="@+id/pull_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:layout_below="@+id/pull_id"
+        android:padding="10dp"
+        android:maxLines="5"
+        android:ellipsize="end"/>
+
+    <TextView
+        android:id="@+id/pull_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2017/01/10"
+        android:textStyle="italic"
+        android:layout_alignBaseline="@+id/pull_ownername"
+        android:layout_alignBottom="@+id/pull_ownername"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

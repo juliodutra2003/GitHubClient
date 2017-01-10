@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 View v = listView.getChildAt(0);
                 listViewYScroll = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
 
-                new ListRepositoriesAsyncTask(this, repositoryResume.getId() + "").execute("list");
+                new ListRepositoriesAsyncTask(this, String.valueOf(repositoryResume.getId()) ).execute("list");
             }
         }
     }
