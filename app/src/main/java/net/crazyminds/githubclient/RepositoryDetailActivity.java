@@ -71,14 +71,10 @@ public class RepositoryDetailActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-
-            if(position == 0)
-            {
+            if(position == 0){
                 return RepositoryDetailInfoFragment.newInstance(repository);
-
             }
-            else
-            {
+            else{
                 return RepositoryDetailPullFragment.newInstance(repository);
             }
 

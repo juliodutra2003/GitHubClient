@@ -66,15 +66,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listView.setOnScrollListener(this);
         listView.setOnItemClickListener(this);
 
-        Log.d("main" , "onCreate");
-
-        listRepBroadcastReceiver = new BroadcastReceiver()
-        {
+        listRepBroadcastReceiver = new BroadcastReceiver(){
             @Override
             public void onReceive(Context context, Intent intent)
             {
-                Log.d("main" , " listRepBroadcastReceiver onReceive");
-
                 ListRepositoriesAsyncTask.RepositoryListAsyncTaskResult result = (ListRepositoriesAsyncTask.RepositoryListAsyncTaskResult) intent.getSerializableExtra(REPOSITORYLIST_ASYNCTASK_RESULT);
                 listRepositoryResume.addAll(result.getRepositoryResumeList());
                 isThereMore = result.isThereMore();
@@ -84,13 +79,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         };
 
-        getRepBroadcastReceiver = new BroadcastReceiver()
-        {
+        getRepBroadcastReceiver = new BroadcastReceiver(){
             @Override
             public void onReceive(Context context, Intent intent)
             {
-                Log.d("main" , " getRepBroadcastReceiver onReceive");
-
                 GetRepositoryAsyncTask.GetRepositoryAsyncTaskResult result = (GetRepositoryAsyncTask.GetRepositoryAsyncTaskResult) intent.getSerializableExtra(GETREPOSITORY_ASYNCTASK_RESULT);
                 repository = result.getRepository();
                 progressBar.setVisibility(View.GONE);
@@ -100,16 +92,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         };
 
-        if(savedInstanceState != null)
-        {
+        if(savedInstanceState != null){
             listRepositoryResume = (List<RepositoryResume>) savedInstanceState.getSerializable(REPOSITORY_RESUME_LIST);
             if(listRepositoryResume != null)
                 PopulateListView();
 
             isThereMore = savedInstanceState.getBoolean(IS_THERE_MORE, false);
         }
-        else
-        {
+        else{
             progressBar.setVisibility(View.VISIBLE);
             listViewFirstVisible = listView.getFirstVisiblePosition();
             View v = listView.getChildAt(0);
@@ -117,15 +107,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             new ListRepositoriesAsyncTask(this).execute("0");
         }
-
-
-        //GHRepository rep = github.getRepository("teste");
-            //rep.listCommits()
     }
 
     @Override
-    protected void onStart()
-    {
+    protected void onStart(){
         super.onStart();
         LocalBroadcastManager brInstance = LocalBroadcastManager.getInstance(this);
         brInstance.registerReceiver((listRepBroadcastReceiver), new IntentFilter(REPOSITORYLIST_ASYNCTASK_RESULT));
@@ -133,25 +118,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop(){
         LocalBroadcastManager brInstance = LocalBroadcastManager.getInstance(this);
         brInstance.unregisterReceiver(listRepBroadcastReceiver);
         brInstance.unregisterReceiver(getRepBroadcastReceiver);
         super.onStop();
     }
 
-    void PopulateListView()
-    {
-        Log.d("main" , "PopulateListView ");
-
+    void PopulateListView(){
         repositoryResumeAdapter = new RepositoryResumeAdapter(MainActivity.this, listRepositoryResume);
         listView.setAdapter(repositoryResumeAdapter);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState)
-    {
+    public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
 
         if(listRepositoryResume != null)
@@ -163,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        Log.d("main" , "onScrollStateChanged isThereMore " + isThereMore);
         if(isThereMore){
 
             if(listView.getLastVisiblePosition() + 1 == listRepositoryResume.size()) {
@@ -182,12 +161,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("main" , "onItemClick " + position);
         progressBar.setVisibility(View.VISIBLE);
         new GetRepositoryAsyncTask(this, listRepositoryResume.get(position).getFullName() + "/" + listRepositoryResume.get(position).getName() ).execute("0");
     }

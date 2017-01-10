@@ -46,14 +46,8 @@ public class ListRepositoriesAsyncTask extends AsyncTask<Object, Object, Void> {
         protected Void doInBackground(Object... params) {
             GitHub github = null;
 
-            Log.d("ListRepAsyncTask", "ListRepositoriesAsyncTask - doInBackground");
             try {
-                //github = GitHub.connectAnonymously();
-                github = GitHub.connectUsingPassword("juliodutra2003", "lort2t,2185");
-
-                Log.d("ListRepAsyncTask", "ListRepositoriesAsyncTask - github.isCredentialValid() " + github.isCredentialValid());
-                Log.d("ListRepAsyncTask", "ListRepositoriesAsyncTask - github.isAnonymous() " + github.isAnonymous());
-                Log.d("ListRepAsyncTask", "ListRepositoriesAsyncTask - github.isOffline() " + github.isOffline());
+                github = GitHub.connectAnonymously();
 
                 PagedIterator<GHRepository> iterator = github.listAllPublicRepositories(since).iterator();
                 int index = 0;
@@ -66,16 +60,12 @@ public class ListRepositoriesAsyncTask extends AsyncTask<Object, Object, Void> {
                 result.isThereMore = iterator.hasNext();
             } catch (HttpException e) {
                 e.printStackTrace();
-                Log.d("ListRepAsyncTask", "ListRepositoriesAsyncTask - HttpException ERROR " + e.getMessage());
             } catch (SocketTimeoutException e) {
                 e.printStackTrace();
-                Log.d("ListRepAsyncTask", "ListRepositoriesAsyncTask - SocketTimeoutException ERROR " + e.getMessage());
             } catch (NoSuchElementException e) {
                 e.printStackTrace();
-                Log.d("ListRepAsyncTask", "ListRepositoriesAsyncTask - NoSuchElementException ERROR " + e.getMessage());
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("ListRepAsyncTask", "ListRepositoriesAsyncTask - Exception ERROR " + e.getMessage() + " ");
             }
 
             return null;
@@ -84,7 +74,6 @@ public class ListRepositoriesAsyncTask extends AsyncTask<Object, Object, Void> {
         @Override
         protected void onPostExecute (Void result)
         {
-            Log.d("ListRepAsyncTask" , "ListRepositoriesAsyncTask onPostExecute " + result);
             sendResult();
         }
 
@@ -92,7 +81,6 @@ public class ListRepositoriesAsyncTask extends AsyncTask<Object, Object, Void> {
         Intent intent = new Intent(REPOSITORYLIST_ASYNCTASK_RESULT);
         if(result != null)
         {
-            Log.d("ListRepAsyncTask" , "sendResult " + result);
             intent.putExtra(REPOSITORYLIST_ASYNCTASK_RESULT, result);
             broadcaster.sendBroadcast(intent);
         }

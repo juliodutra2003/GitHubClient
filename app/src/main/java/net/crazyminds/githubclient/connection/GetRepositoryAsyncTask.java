@@ -43,14 +43,8 @@ public class GetRepositoryAsyncTask extends AsyncTask<Object, Object, Void> {
     protected Void doInBackground(Object... params) {
         GitHub github = null;
 
-        Log.d("GetRepAsyncTask", "GetRepositoryAsyncTask - doInBackground repositoryName " + repositoryFullName);
         try {
-            //github = GitHub.connectAnonymously();
-            github = GitHub.connectUsingPassword("juliodutra2003", "lort2t,2185");
-
-            Log.d("GetRepAsyncTask", "GetRepositoryAsyncTask - github.isCredentialValid() " + github.isCredentialValid());
-            Log.d("GetRepAsyncTask", "GetRepositoryAsyncTask - github.isAnonymous() " + github.isAnonymous());
-            Log.d("GetRepAsyncTask", "GetRepositoryAsyncTask - github.isOffline() " + github.isOffline());
+            github = GitHub.connectAnonymously();
 
             GHRepository rep = github.getRepository(repositoryFullName);
             Repository repository = new Repository();
@@ -65,16 +59,12 @@ public class GetRepositoryAsyncTask extends AsyncTask<Object, Object, Void> {
             result.setRepository( repository);
         } catch (HttpException e) {
             e.printStackTrace();
-            Log.d("GetRepAsyncTask", "GetRepositoryAsyncTask - HttpException ERROR " + e.getMessage());
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
-            Log.d("GetRepAsyncTask", "GetRepositoryAsyncTask - SocketTimeoutException ERROR " + e.getMessage());
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            Log.d("GetRepAsyncTask", "GetRepositoryAsyncTask - NoSuchElementException ERROR " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("GetRepAsyncTask", "GetRepositoryAsyncTask - Exception ERROR " + e.getMessage() + " ");
         }
 
         return null;
@@ -83,7 +73,6 @@ public class GetRepositoryAsyncTask extends AsyncTask<Object, Object, Void> {
     @Override
     protected void onPostExecute (Void result)
     {
-        Log.d("GetRepAsyncTask" , "GetRepositoryAsyncTask onPostExecute " + result);
         sendResult();
     }
 
@@ -91,7 +80,6 @@ public class GetRepositoryAsyncTask extends AsyncTask<Object, Object, Void> {
         Intent intent = new Intent(GETREPOSITORY_ASYNCTASK_RESULT);
         if(result != null)
         {
-            Log.d("GetRepAsyncTask" , "sendResult " + result);
             intent.putExtra(GETREPOSITORY_ASYNCTASK_RESULT, result);
             broadcaster.sendBroadcast(intent);
         }
