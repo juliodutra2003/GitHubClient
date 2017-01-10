@@ -27,6 +27,7 @@ import java.util.NoSuchElementException;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener , AbsListView.OnScrollListener  {
 
     private static final String REPOSITORY_RESUME_LIST = "REPOSITORY_RESUME_LIST";
+    private static final String IS_THERE_MORE = "IS_THERE_MORE";
 
     private ListView listView;
     private RepositoryResumeAdapter repositoryResumeAdapter;
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             listRepositoryResume = (List<RepositoryResume>) savedInstanceState.getSerializable(REPOSITORY_RESUME_LIST);
             if(listRepositoryResume != null)
                 PopulateListView();
+
+            isThereMore = savedInstanceState.getBoolean(IS_THERE_MORE, false);
         }
         else
         {
@@ -86,13 +89,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if(listRepositoryResume != null)
             savedInstanceState.putSerializable(REPOSITORY_RESUME_LIST, (Serializable) listRepositoryResume);
 
+        savedInstanceState.putBoolean(IS_THERE_MORE, isThereMore);
     }
 
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        Log.d("main" , "onScrollStateChanged " + scrollState);
+        Log.d("main" , "onScrollStateChanged isThereMore " + isThereMore);
         if(isThereMore){
+
             if(listView.getLastVisiblePosition() + 1 == listRepositoryResume.size()){
                 repositoryResume.setId(listRepositoryResume.get(listRepositoryResume.size() - 1).getId());
                 isThereMore = false;
@@ -145,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 while (iterator.hasNext() && index < 20 )
                 {
                     GHRepository rep = iterator.next();
-                    Log.d("main" , "PopulateListView - add repository to list " + rep.getName());
                     listRepositoryResume.add(new RepositoryResume (rep.getId(), rep.getName(), rep.getOwnerName()  ));
                     index++;
                 }
