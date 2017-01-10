@@ -1,14 +1,9 @@
 package net.crazyminds.githubclient.connection;
 
-/**
- * Created by julio on 10/01/2017.
- */
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import net.crazyminds.githubclient.domain.PullRequest;
 
@@ -25,6 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Created by julio on 10/01/2017.
+ *
+ * This class gets a list of pull requests from a repository, from GitHub, asynchronously and anonymously
+ *
+ * The result is paged and have a cap of 20 objects
+ *
+ * Returns to the caller by broadcast
+ */
+
 public class ListRepositoryPullAsyncTask extends AsyncTask<Object, Object, Void> {
 
     public static final String REPOSITORYPULLLIST_ASYNCTASK_RESULT = "net.crazyminds.REPOSITORYPULLLIST_ASYNCTASK_RESULT";
@@ -34,11 +39,29 @@ public class ListRepositoryPullAsyncTask extends AsyncTask<Object, Object, Void>
     String since = "0";
     String repositoryFullName = "";
 
+    /**
+     * GetRepositoryAsyncTask Constructor
+     *
+     * @param context
+     *      Context activity of the caller.
+     * @param repositoryfullname
+     *      The target repository full name
+     */
     public ListRepositoryPullAsyncTask(Context context, String repositoryfullname) {
         broadcaster = LocalBroadcastManager.getInstance(context);
         repositoryFullName = repositoryfullname;
     }
 
+    /**
+     * GetRepositoryAsyncTask Constructor
+     *
+     * @param context
+     *      Context activity of the caller.
+     * @param sinceparam
+     *      Index of the first object to retrieve
+     * @param repositoryfullname
+     *      The target repository full name
+     */
     public ListRepositoryPullAsyncTask(Context context, String sinceparam, String repositoryfullname)
     {
         broadcaster = LocalBroadcastManager.getInstance(context);

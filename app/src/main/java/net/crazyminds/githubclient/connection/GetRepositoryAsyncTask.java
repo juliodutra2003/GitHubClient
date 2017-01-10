@@ -2,6 +2,12 @@ package net.crazyminds.githubclient.connection;
 
 /**
  * Created by julio on 10/01/2017.
+ *
+ * This class gets a repository from GitHub asynchronously and anonymously
+ *
+ * The result is paged and have a cap of 20 objects
+ *
+ * Returns to the caller by broadcast
  */
 
 import android.content.Context;
@@ -33,6 +39,15 @@ public class GetRepositoryAsyncTask extends AsyncTask<Object, Object, Void> {
     LocalBroadcastManager broadcaster;
     String repositoryFullName = "";
 
+
+    /**
+     * GetRepositoryAsyncTask Constructor
+     *
+     * @param context
+     *      Context activity of the caller.
+     * @param repositoryfullname
+     *      The target repository full name
+     */
     public GetRepositoryAsyncTask(Context context, String repositoryfullname)
     {
         broadcaster = LocalBroadcastManager.getInstance(context);
