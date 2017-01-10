@@ -13,15 +13,14 @@
     <ListView
         android:id="@+id/mainactvity_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:isScrollContainer="true"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"/>
 
-        <ProgressBar
-            android:id="@+id/mainactvity_progressbar"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </ListView>
+    <ProgressBar
+        android:id="@+id/mainactvity_progressbar"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

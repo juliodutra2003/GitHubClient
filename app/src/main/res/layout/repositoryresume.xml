@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <TextView
+        android:id="@+id/repositoryresume_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="id"
+        android:padding="15dp"/>
+
+    <TextView
+        android:id="@+id/repositoryresume_projectname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="projectname"
+        android:layout_marginEnd="16dp"
+        android:textStyle="bold"
+        android:layout_alignBaseline="@+id/repositoryresume_id"
+        android:layout_alignBottom="@+id/repositoryresume_id"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/repositoryresume_ownername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ownername"
+        android:textStyle="italic"
+        android:layout_alignBaseline="@+id/repositoryresume_id"
+        android:layout_alignBottom="@+id/repositoryresume_id"
+        android:layout_toEndOf="@+id/repositoryresume_id" />
+
+</RelativeLayout>

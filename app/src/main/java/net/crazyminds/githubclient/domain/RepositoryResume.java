@@ -8,7 +8,7 @@ public class RepositoryResume {
 
     private int id;
     private String name;
-    private String ownerLogin;
+    private String ownerName;
 
     public RepositoryResume(){
     }
@@ -17,7 +17,7 @@ public class RepositoryResume {
     {
         id = idparam;
         name = nameparam;
-        ownerLogin = ownerparam;
+        ownerName = ownerparam;
     }
 
     public int getId() {
@@ -36,11 +36,11 @@ public class RepositoryResume {
         name = name;
     }
 
-    public String getOwnerLogin() {
-        return ownerLogin;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setOwnerLogin(String ownerLogin) {
-        ownerLogin = ownerLogin;
+    public void setOwnerName(String ownerName) {
+        ownerName = ownerName;
     }
 }
